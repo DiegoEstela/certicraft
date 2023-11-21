@@ -11,6 +11,7 @@ import FullLoader from "../components/FullLoader/FullLoader";
 import { ThemeProvider } from "@emotion/react";
 import { primaryTheme } from "../themes/themes";
 import { Box, CssBaseline } from "@mui/material";
+import Header from "../components/Header/Header";
 
 const AuthContext = createContext();
 
@@ -62,7 +63,12 @@ const AuthProvider = ({ children }) => {
             overflow: "hidden",
           }}
         >
-          {loading ? <FullLoader /> : user ? <>{children} </> : <LoginApp />}
+          {loading ? <FullLoader /> : user ? <>{children} </> : 
+          <> 
+          <Header />
+          <LoginApp />
+          </> 
+          }
         </Box>
       </ThemeProvider>
     </AuthContext.Provider>

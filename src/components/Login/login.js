@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Paper,
@@ -13,7 +13,6 @@ import { AuthContext} from "../../context/AuthContext";
 import logoByFe from "../../assets/logoByFe.png";
 
 const LoginApp = () => {
-  const [loader, setLoader] = useState(false);
   const { signIn } = useContext(AuthContext);
   const {
     register,
@@ -23,20 +22,9 @@ const LoginApp = () => {
 
   const onSubmit = async (data) => {
     try {
-      setLoader(true);
       const { email, password } = data;
-      const result = await signIn(email, password);
-      if (result) {
-        setLoader(false);
-        Swal.fire({
-          icon: "success",
-          title: "¡Inicio de sesión exitoso!",
-          text: "Bienvenido de vuelta.",
-        });
-
-      }
+      await signIn(email, password);
     } catch (error) {
-      setLoader(false);
       Swal.fire({
         icon: "error",
         title: "Error al iniciar sesión",
@@ -59,14 +47,14 @@ const LoginApp = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          height: "50%",
-          maxHeight: "320px",
+          height: "60%",
+          maxHeight: "420px",
           padding: "24px",
           minWidth: "280px",
           width: "24vw",
         }}
       >
-        {!loader ? (
+         
           <>
             <Box sx={{ display: 'flex' , flexDirection: 'column', width: '100%', alignItems: 'center', }}>
      
@@ -85,7 +73,7 @@ const LoginApp = () => {
                   })}
                   error={!!errors.email}
                   helperText={errors.email?.message}
-                  sx={{ marginBottom: "24px", padding: "2" }}
+                  sx={{ marginBottom: "24px", maxHeight: "60px"}}
                 />
                 <TextField
                   label="Contraseña"
@@ -97,7 +85,7 @@ const LoginApp = () => {
                   })}
                   error={!!errors.password}
                   helperText={errors.password?.message}
-                  sx={{ marginBottom: "24px" }}
+                  sx={{ marginBottom: "24px", maxHeight: "60px" }}
                 />
 
                 <Button
@@ -111,9 +99,7 @@ const LoginApp = () => {
               </form>
             </Box>
           </>
-        ) : (
-          "cargando"
-        )}
+        
       </Paper>
     </Box>
   );
