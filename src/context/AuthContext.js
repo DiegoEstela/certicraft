@@ -1,15 +1,31 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import React, { createContext, useState, useEffect } from "react";
+import {
+  browserSessionPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../config/firebase";
+import LoginApp from "../components/Login/login";
+import FullLoader from "../components/FullLoader/FullLoader";
+import { ThemeProvider } from "@emotion/react";
+import { primaryTheme } from "../themes/themes";
+import { Box, CssBaseline } from "@mui/material";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-      setUser(authUser);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -17,8 +33,8 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async (email, password) => {
     try {
-     return await signInWithEmailAndPassword(auth, email, password);
-   
+      await setPersistence(auth, browserSessionPersistence);
+      return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error(error.message);
       throw error;
@@ -35,11 +51,22 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, signIn, signOut }}>
-      {children}
+      <ThemeProvider theme={primaryTheme}>
+        <CssBaseline />
+        <Box
+          sx={{
+            width: "100vw",
+            height: "100vh",
+            margin: 0,
+            padding: 0,
+            overflow: "hidden",
+          }}
+        >
+          {loading ? <FullLoader /> : user ? <>{children} </> : <LoginApp />}
+        </Box>
+      </ThemeProvider>
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export { AuthContext, AuthProvider };

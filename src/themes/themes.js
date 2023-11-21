@@ -7,7 +7,10 @@ export const primaryTheme = createTheme({
             main: "#63CCCA"
         },
         secondary:{
-            main: "#FEFFBE"
+            main: "#7F7F7F"
+        },
+        highLight:{
+            main: "#001D4A"
         },
         text: {
             main: "#104F55"

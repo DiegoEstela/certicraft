@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import { Button, Paper, TextField, Box, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
+import {
+  Button,
+  Paper,
+  TextField,
+  Box,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { AuthContext} from "../../context/AuthContext";
+import logoByFe from "../../assets/logoByFe.png";
 
 const LoginApp = () => {
   const [loader, setLoader] = useState(false);
-  const navigate = useNavigate()
-  const { signIn } = useAuth()
+  const { signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -19,7 +25,7 @@ const LoginApp = () => {
     try {
       setLoader(true);
       const { email, password } = data;
-      const result =  await signIn(email, password)
+      const result = await signIn(email, password);
       if (result) {
         setLoader(false);
         Swal.fire({
@@ -27,13 +33,7 @@ const LoginApp = () => {
           title: "¡Inicio de sesión exitoso!",
           text: "Bienvenido de vuelta.",
         });
-        navigate('/', {
-          replace: true,
-          state:{
-            logged: true,
-            email
-          }
-        })
+
       }
     } catch (error) {
       setLoader(false);
@@ -59,53 +59,61 @@ const LoginApp = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          height: "40vh",
+          height: "50%",
+          maxHeight: "320px",
           padding: "24px",
           minWidth: "280px",
           width: "24vw",
-
         }}
       >
-        {!loader ? 
-        (
+        {!loader ? (
           <>
-          <Box display="flex" flexDirection="column" justifyContent="space-between" height="2%" >
-        <Typography variant="h5">
-          CERTICRAFT
-        </Typography>
-        <Typography variant="h6">Inicia sesión</Typography>
-      </Box>
-      <Box  > 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          label="Correo electrónico"
-          variant="outlined"
-          fullWidth
-          {...register("email", { required: "Este campo es requerido" })}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-          sx={{ marginBottom: "24px", padding:'2' }}
-        />
-        <TextField
-          label="Contraseña"
-          type="password"
-          variant="outlined"
-          fullWidth
-          {...register("password", { required: "Este campo es requerido" })}
-          error={!!errors.password}
-          helperText={errors.password?.message}
-          sx={{ marginBottom: "24px" }}
-        />
+            <Box sx={{ display: 'flex' , flexDirection: 'column', width: '100%', alignItems: 'center', }}>
+     
+              <Avatar src={logoByFe} alt="byfe" sx={{ width: "40px"}} />
+  
+              <Typography variant="h6">Inicia sesión</Typography>
+            </Box>
+            <Box>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <TextField
+                  label="Correo electrónico"
+                  variant="outlined"
+                  fullWidth
+                  {...register("email", {
+                    required: "Este campo es requerido",
+                  })}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                  sx={{ marginBottom: "24px", padding: "2" }}
+                />
+                <TextField
+                  label="Contraseña"
+                  type="password"
+                  variant="outlined"
+                  fullWidth
+                  {...register("password", {
+                    required: "Este campo es requerido",
+                  })}
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
+                  sx={{ marginBottom: "24px" }}
+                />
 
-        <Button variant="contained" color="primary" fullWidth type="submit">
-          Iniciar Sesión
-        </Button>
-      </form>
-      </Box>
-       </>)
-        : "cargando"}
-
-       
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  type="submit"
+                >
+                  Iniciar Sesión
+                </Button>
+              </form>
+            </Box>
+          </>
+        ) : (
+          "cargando"
+        )}
       </Paper>
     </Box>
   );
