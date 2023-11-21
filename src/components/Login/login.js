@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Button, Paper, TextField, Box, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
-import { auth } from "../../config/firebase";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const LoginApp = () => {
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate()
+  const { signIn } = useAuth()
   const {
     register,
     handleSubmit,
@@ -17,7 +19,7 @@ const Login = () => {
     try {
       setLoader(true);
       const { email, password } = data;
-      const result = await signInWithEmailAndPassword(auth, email, password);
+      const result =  await signIn(email, password)
       if (result) {
         setLoader(false);
         Swal.fire({
@@ -25,6 +27,13 @@ const Login = () => {
           title: "¡Inicio de sesión exitoso!",
           text: "Bienvenido de vuelta.",
         });
+        navigate('/', {
+          replace: true,
+          state:{
+            logged: true,
+            email
+          }
+        })
       }
     } catch (error) {
       setLoader(false);
@@ -102,4 +111,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginApp;

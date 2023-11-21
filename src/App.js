@@ -1,33 +1,17 @@
-import { ThemeProvider, CssBaseline, Container, Box } from "@mui/material";
+import React from "react";
+import { ThemeProvider, CssBaseline, Box } from "@mui/material";
 import { primaryTheme } from "./themes/themes";
-import Header from "./components/Header/Header";
-import Login from "./components/Login/login";
 
-
-
-
+import RoutesApp from "./routes/RoutesApp";
 
 const App = () => {
-  
   return (
-      <ThemeProvider theme={primaryTheme}> 
-      <CssBaseline/>
-      <Box sx={{width: "100vw"}}>
-        <Header/>
-        <Container  sx={{
-        display: "flex",
-        flexDirection: "column",
-        textAlign: "center",
-        justifyContent: "center",
-        alignContent: "center",
-        width: "100vw",
-        height: '100vh'
-      }}> 
-        <Login/>
-        </Container>
+    <ThemeProvider theme={primaryTheme}>
+      <CssBaseline />
+      <Box sx={{ width: "100vw" }}>
+          <RoutesApp />
       </Box>
-      </ThemeProvider>
-
+    </ThemeProvider>
   );
 };
 
