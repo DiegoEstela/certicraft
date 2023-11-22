@@ -7,6 +7,7 @@ import Header from "../components/Header/Header";
 import { Box } from "@mui/material";
 import AllStandardsView from "../Modules/AllStandards";
 import BasicSpeedDial from "../components/SpeedDial/SpeedDial";
+import CompanyData from "../Modules/CompanyData/view/CompanyData";
 
 const RoutesApp = () => {
   return (
@@ -26,6 +27,7 @@ const RoutesApp = () => {
           <Route path="/" element={<WelcomeView />} />
           <Route path="/login" element={<LoginApp />} />
           <Route path="/allStandars" element={<AllStandardsView />} />
+          <Route path="/companyData" element={<CompanyData />} />
         </Routes>
         </Box>
         <BasicSpeedDial />

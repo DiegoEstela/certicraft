@@ -31,8 +31,8 @@ const WelcomeView = () => {
           aria-label="outlined button group"
           color="primary"
         >
-          <Button onClick={() => navigate("/allStandars")}>
-            AGREGAR CLIENTE
+          <Button onClick={() => navigate("/companyData")}>
+            DATOS DEL CLIENTE
           </Button>
           <Button>Normas ISO</Button>
         </ButtonGroup>
