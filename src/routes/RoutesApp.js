@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import AllStandardsView from "../Modules/AllStandards";
 import BasicSpeedDial from "../components/SpeedDial/SpeedDial";
 import CompanyData from "../Modules/CompanyData/view/CompanyData";
+import ReturnButton from "../components/ReturnButton/ReturnButton";
 
 const RoutesApp = () => {
   return (
@@ -31,7 +32,7 @@ const RoutesApp = () => {
         </Routes>
         </Box>
         <BasicSpeedDial />
-       
+        <ReturnButton/>
     </BrowserRouter>
   );
 };

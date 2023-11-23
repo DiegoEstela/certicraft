@@ -57,6 +57,7 @@ const AuthProvider = ({ children }) => {
         <Box
           sx={{
             width: "100vw",
+            maxHeight: "100vh",
             height: "100vh",
             margin: 0,
             padding: 0,
