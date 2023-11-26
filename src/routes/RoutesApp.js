@@ -9,30 +9,40 @@ import AllStandardsView from "../Modules/AllStandards";
 import BasicSpeedDial from "../components/SpeedDial/SpeedDial";
 import CompanyData from "../Modules/CompanyData/view/CompanyData";
 import ReturnButton from "../components/ReturnButton/ReturnButton";
+import Glosario from "../components/Glosario/Glosario";
+import { useState } from "react";
 
 const RoutesApp = () => {
+  const [glosarioOpen, setGlasarioOpen] = useState(false);
+
+  const handleGlosario = () => {
+    setGlasarioOpen(!glosarioOpen);
+  };
+
+  console.log(glosarioOpen);
   return (
     <BrowserRouter>
       <Header />
-      <Box 
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        alignContent: "center",
-        height: '90%'
-      }}
-    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          alignContent: "center",
+          height: "90%",
+        }}
+      >
         <Routes>
           <Route path="/" element={<WelcomeView />} />
           <Route path="/login" element={<LoginApp />} />
           <Route path="/allStandars" element={<AllStandardsView />} />
           <Route path="/companyData" element={<CompanyData />} />
         </Routes>
-        </Box>
-        <BasicSpeedDial />
-        <ReturnButton/>
+      </Box>
+      <BasicSpeedDial openGlosario={handleGlosario} />
+      <ReturnButton />
+      <Glosario open={glosarioOpen} onClose={() => setGlasarioOpen(false)} />
     </BrowserRouter>
   );
 };

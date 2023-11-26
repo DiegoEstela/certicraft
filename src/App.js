@@ -1,4 +1,3 @@
-import React from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { primaryTheme } from "./themes/themes";
 
@@ -8,7 +7,7 @@ const App = () => {
   return (
     <ThemeProvider theme={primaryTheme}>
       <CssBaseline />
-          <RoutesApp />
+      <RoutesApp />
     </ThemeProvider>
   );
 };
