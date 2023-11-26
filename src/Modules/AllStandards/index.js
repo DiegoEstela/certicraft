@@ -1,4 +1,3 @@
-import AllStandardsView from "./view";
+import AllStandarsView from "./view";
 
-
-export default AllStandardsView;
+export default AllStandarsView;

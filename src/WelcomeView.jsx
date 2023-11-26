@@ -34,7 +34,7 @@ const WelcomeView = () => {
           <Button onClick={() => navigate("/companyData")}>
             DATOS DEL CLIENTE
           </Button>
-          <Button>Normas ISO</Button>
+          <Button onClick={() => navigate("/allStandars")}>Normas ISO</Button>
         </ButtonGroup>
       </Box>
     </>

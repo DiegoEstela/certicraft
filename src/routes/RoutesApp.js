@@ -11,6 +11,7 @@ import CompanyData from "../Modules/CompanyData/view/CompanyData";
 import ReturnButton from "../components/ReturnButton/ReturnButton";
 import Glosario from "../components/Glosario/Glosario";
 import { useState } from "react";
+import StandardDetail from "./../Modules/AllStandards/view/StandardDetail";
 
 const RoutesApp = () => {
   const [glosarioOpen, setGlasarioOpen] = useState(false);
@@ -18,8 +19,6 @@ const RoutesApp = () => {
   const handleGlosario = () => {
     setGlasarioOpen(!glosarioOpen);
   };
-
-  console.log(glosarioOpen);
   return (
     <BrowserRouter>
       <Header />
@@ -37,6 +36,7 @@ const RoutesApp = () => {
           <Route path="/" element={<WelcomeView />} />
           <Route path="/login" element={<LoginApp />} />
           <Route path="/allStandars" element={<AllStandardsView />} />
+          <Route path="/standard-detail/:name" Component={StandardDetail} />
           <Route path="/companyData" element={<CompanyData />} />
         </Routes>
       </Box>
