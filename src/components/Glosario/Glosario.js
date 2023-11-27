@@ -35,7 +35,7 @@ const Glosario = ({ open, onClose }) => {
   );
   return (
     <Modal
-      open={open}
+      open={open ? open : false}
       onClose={onClose}
       className="modal"
       closeAfterTransition
