@@ -17,7 +17,7 @@ const WelcomeView = () => {
       <Animation />
 
       <Typography variant={isSmallScreen ? "h4" : "h3"} gutterBottom>
-        Bienvenido a Certicraft
+        Test
       </Typography>
       <Typography variant={isSmallScreen ? "body2" : "body1"}>
         Nuestro sistema de gestión de certificación ISO{" "}
