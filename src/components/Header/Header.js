@@ -1,23 +1,35 @@
 import { AppBar, Avatar, Toolbar } from "@mui/material";
-import byfe from '../../assets/logoByFeText.png'
-import { AuthContext} from "../../context/AuthContext";
+import byfe from "../../assets/logoByFeText.png";
+import HstLogo from "../../assets/HstLogo.png";
+import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
 function Header() {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   return (
     <AppBar position="static">
-       <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <img src={byfe} alt="Logo"   style={{ width: 'auto', height: '40px', }}/>
-      <Avatar
+      <Toolbar
         sx={{
-          backgroundColor: '#7F7F7F', 
-          width: 40,
-          height: 40,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        {user?.email[0].toUpperCase()}
-      </Avatar>
+        <img src={byfe} alt="Logo" style={{ width: "auto", height: "40px" }} />
+        <img
+          src={HstLogo}
+          alt="HstLogo"
+          style={{ width: "auto", height: "60px" }}
+        />
+        <Avatar
+          sx={{
+            backgroundColor: "#7F7F7F",
+            width: 40,
+            height: 40,
+          }}
+        >
+          {user?.email[0].toUpperCase()}
+        </Avatar>
       </Toolbar>
     </AppBar>
   );

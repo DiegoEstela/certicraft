@@ -24,6 +24,7 @@ export const primaryTheme = createTheme({
     },
     background: {
       paper: "#fff",
+      back: "#F1F1F1",
     },
     border: {
       main: "#007270",

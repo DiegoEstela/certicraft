@@ -12,6 +12,7 @@ import ReturnButton from "../components/ReturnButton/ReturnButton";
 import Glosario from "../components/Glosario/Glosario";
 import { useState } from "react";
 import StandardDetail from "./../Modules/AllStandards/view/StandardDetail";
+import FodaView from "../Modules/ComponentsShared/Foda/FodaWiew";
 
 const RoutesApp = () => {
   const [glosarioOpen, setGlasarioOpen] = useState(false);
@@ -38,6 +39,7 @@ const RoutesApp = () => {
           <Route path="/allStandars" element={<AllStandardsView />} />
           <Route path="/standard-detail/:name" Component={StandardDetail} />
           <Route path="/companyData" element={<CompanyData />} />
+          <Route path="/fodaView" element={<FodaView />} />
         </Routes>
       </Box>
       <BasicSpeedDial openGlosario={handleGlosario} />
