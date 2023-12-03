@@ -22,7 +22,7 @@ const useGetFodaDocuments = (uid) => {
         });
       });
 
-      return fodaDocuments;
+      return fodaDocuments[0];
     } catch (error) {
       console.error("Error al obtener documentos FODA:", error);
       return [];

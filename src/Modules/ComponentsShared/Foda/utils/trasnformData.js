@@ -17,6 +17,7 @@ export function transformData(datos, title) {
         Tres: "",
       },
       importancia: "",
+      id: index,
     };
 
     if (field === "importancia") {

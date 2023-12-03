@@ -25,10 +25,10 @@ export const StandardCard = ({ standard, onCardClick }) => {
     >
       <CardContent>
         <Typography variant="h6" component="div" align="center">
-          {standard.name}
+          {standard?.name}
         </Typography>
         <Typography variant="body2" sx={{ marginTop: 1 }} align="center">
-          {standard.description}
+          {standard?.description}
         </Typography>
       </CardContent>
     </Card>

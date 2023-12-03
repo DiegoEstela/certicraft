@@ -7,7 +7,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function AllInputControl({
   index,
@@ -17,20 +17,23 @@ function AllInputControl({
   register,
   defaultValue,
   setValue,
+  lastFoda,
 }) {
+  const [importancia, setImportancia] = useState(lastFoda?.importancia || "");
+
   const handleChange = (e) => {
     if (isNaN(e.target.value)) {
       return;
     }
     const newValue = e.target.value !== "" ? parseInt(e.target.value, 10) : 0;
+    setImportancia(newValue);
     handleInputChange(index - 1, newValue);
   };
 
   useEffect(() => {
-    // Reinicia el valor del campo de importancia
     setValue(`${index}-importancia`, "");
   }, [index, setValue]);
-
+  console.log("AAAA", lastFoda);
   return (
     <Box
       sx={{
@@ -59,6 +62,7 @@ function AllInputControl({
           <TextField
             name={`${index}-${title}`}
             label={`${title} ${index}`}
+            defaultValue={lastFoda?.description || ""}
             {...register(`${index}-${title}`, {
               required: "Este campo es requerido",
             })}
@@ -83,7 +87,7 @@ function AllInputControl({
           >
             <InputLabel sx={{ fontSize: "14px" }}>Interesado</InputLabel>
             <Select
-              defaultValue={defaultValue?.interesados?.Uno || ""}
+              defaultValue={lastFoda?.interesados?.Uno || ""}
               label={`${index}-interesadoUno`}
               sx={{ fontSize: "14px" }}
               {...register(`${index}-interesadoUno`, {
@@ -107,7 +111,7 @@ function AllInputControl({
           >
             <InputLabel sx={{ fontSize: "14px" }}>Interesado</InputLabel>
             <Select
-              defaultValue={defaultValue?.interesados?.Dos || ""}
+              defaultValue={lastFoda?.interesados?.Dos || ""}
               label={`${index}-interesadoDos`}
               sx={{ fontSize: "14px" }}
               {...register(`${index}-interesadoDos`, {
@@ -131,7 +135,7 @@ function AllInputControl({
           >
             <InputLabel sx={{ fontSize: "14px" }}>Interesado</InputLabel>
             <Select
-              defaultValue={defaultValue?.interesados?.Tres || ""}
+              defaultValue={lastFoda?.interesados?.Tres || ""}
               label={`${index}-interesadoTres`}
               sx={{ fontSize: "14px" }}
               {...register(`${index}-interesadoTres`, {
@@ -151,6 +155,7 @@ function AllInputControl({
               required: "Este campo es requerido",
             })}
             type="text"
+            value={importancia}
             label="%"
             margin="dense"
             size="small"

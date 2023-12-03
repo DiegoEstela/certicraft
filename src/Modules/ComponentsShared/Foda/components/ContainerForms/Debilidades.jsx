@@ -1,8 +1,9 @@
 import { useState } from "react";
 import AllInputControl from "../Forms/AllInputControl";
 import { Box, LinearProgress, Typography } from "@mui/material";
+import { getFodaById } from "../../utils/getFodaById";
 
-const Debilidades = ({ register, title, setValue }) => {
+const Debilidades = ({ register, title, setValue, lastFoda }) => {
   const [totalPercentage, setTotalPercentage] = useState(0);
   const [percentages, setPercentages] = useState(Array(10).fill(0));
 
@@ -57,6 +58,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 1)}
         />
         <AllInputControl
           index={2}
@@ -65,6 +67,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 2)}
         />
         <AllInputControl
           index={3}
@@ -73,6 +76,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 3)}
         />
         <AllInputControl
           index={4}
@@ -81,6 +85,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 4)}
         />
         <AllInputControl
           index={5}
@@ -89,6 +94,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 5)}
         />
         <AllInputControl
           index={6}
@@ -97,6 +103,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 6)}
         />
         <AllInputControl
           index={7}
@@ -105,6 +112,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 7)}
         />
         <AllInputControl
           index={8}
@@ -113,6 +121,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 8)}
         />
         <AllInputControl
           index={9}
@@ -121,6 +130,7 @@ const Debilidades = ({ register, title, setValue }) => {
           totalPercentage={totalPercentage}
           register={register}
           setValue={setValue}
+          lastFoda={getFodaById(lastFoda, 9)}
         />
       </Box>
     </>

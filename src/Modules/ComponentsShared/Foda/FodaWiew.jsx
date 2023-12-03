@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Paper } from "@mui/material";
+import { useContext, useState } from "react";
+import { Box, Paper } from "@mui/material";
 import LinearStepper from "../../../components/Stepper/Stepper";
 import { fodaSteps } from "./utils/FodaSteps";
 import FootersButtons from "./components/FooterButtons/FootersButtons";
@@ -12,6 +12,9 @@ import { TEXT_WELCOME_MODAL_FODA } from "./utils/textModal";
 import { useForm } from "react-hook-form";
 import { transformData } from "./utils/trasnformData";
 import { SaveFodaModal } from "../../../components/Modal/SaveFodaModal";
+import { AuthContext } from "../../../context/AuthContext";
+import useGetFodaDocuments from "../../../hooks/useGetFodaDocuments";
+import { BallTriangle } from "react-loader-spinner";
 
 const FodaView = () => {
   const title = ["fortalezas", "oportunidades", "debilidades", "amenazas"];
@@ -19,6 +22,9 @@ const FodaView = () => {
   const [activeStepNum, setActiveStepNum] = useState(1);
   const [fodaData, setFodaData] = useState();
   const { register, getValues, setValue } = useForm();
+  const { user } = useContext(AuthContext);
+
+  const { data: lastFoda, status } = useGetFodaDocuments(user?.uid);
 
   const handlePreSave = () => {
     setFodaData((prevData) => {
@@ -49,6 +55,7 @@ const FodaView = () => {
             register={register}
             title="fortalezas"
             setValue={setValue}
+            lastFoda={lastFoda && lastFoda?.fortalezas?.fortalezas}
           />
         );
       case 2:
@@ -57,6 +64,7 @@ const FodaView = () => {
             register={register}
             title="oportunidades"
             setValue={setValue}
+            lastFoda={lastFoda && lastFoda?.oportunidades?.oportunidades}
           />
         );
       case 3:
@@ -65,11 +73,17 @@ const FodaView = () => {
             register={register}
             title="debilidades"
             setValue={setValue}
+            lastFoda={lastFoda && lastFoda?.debilidades?.debilidades}
           />
         );
       case 4:
         return (
-          <Amenazas register={register} title="amenazas" setValue={setValue} />
+          <Amenazas
+            register={register}
+            title="amenazas"
+            setValue={setValue}
+            lastFoda={lastFoda && lastFoda?.amenazas?.amenazas}
+          />
         );
       default:
         return null;
@@ -93,7 +107,24 @@ const FodaView = () => {
         sx={{ marginBottom: "16px" }}
       />
 
-      {renderFodaComponentes()}
+      {status === "loading" ? (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <BallTriangle
+            height={100}
+            width={100}
+            radius={5}
+            color="#63CCCA"
+            ariaLabel="ball-triangle-loading"
+            wrapperClass={{}}
+            wrapperStyle=""
+            visible={true}
+          />
+        </Box>
+      ) : (
+        ""
+      )}
+
+      {status === "success" ? <>{renderFodaComponentes()}</> : ""}
 
       <FootersButtons
         activeStepNum={activeStepNum}
