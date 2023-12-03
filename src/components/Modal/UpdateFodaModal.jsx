@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
 import { Button } from "@mui/material";
-import { AuthContext } from "../../context/AuthContext";
+
 import moment from "moment";
 
 const style = {
@@ -23,18 +23,12 @@ const style = {
   p: 4,
 };
 
-export default function UpdateFodaModal({
-  fodaData,
-  setOpenUpdateModal,
-  fodaList,
-}) {
+export default function UpdateFodaModal({ setOpenUpdateModal, fodaList }) {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
-  const { user } = useContext(AuthContext);
 
   const updateFoda = async () => {
     try {
-      const uid = user?.uid;
       setOpenUpdateModal(false);
     } catch (err) {
       console.log(err);
