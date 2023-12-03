@@ -49,7 +49,6 @@ export default function NewFodaModal({ fodaData, setOpenNewModal, fodaList }) {
       } else {
         const uid = user?.uid;
         const res = await saveFodaAnalice(uid, fodaData, date);
-        console.log(res);
         if (res) {
           Swal.fire({
             customClass: {

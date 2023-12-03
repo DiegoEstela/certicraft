@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -6,6 +6,10 @@ import Modal from "@mui/material/Modal";
 import { Button } from "@mui/material";
 
 import moment from "moment";
+import { AuthContext } from "../../context/AuthContext";
+import { updateFodaAnalice } from "../../services/updateFodaAnalice";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const style = {
   position: "absolute",
@@ -23,13 +27,43 @@ const style = {
   p: 4,
 };
 
-export default function UpdateFodaModal({ setOpenUpdateModal, fodaList }) {
+export default function UpdateFodaModal({ fodaData, lastFoda }) {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  console.log(lastFoda);
   const updateFoda = async () => {
     try {
-      setOpenUpdateModal(false);
+      const uid = user?.uid;
+      const res = await updateFodaAnalice(
+        uid,
+        fodaData,
+        lastFoda?._vigencia,
+        lastFoda?._version,
+        lastFoda?.id
+      );
+      if (res) {
+        Swal.fire({
+          customClass: {
+            container: "swal-container",
+          },
+          icon: "success",
+          title: "Datos actualizados",
+          text: `Los datos se actualizaron correctamente.`,
+        });
+
+        navigate("/");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error al acutalizar los datos",
+          customClass: {
+            container: "swal-container",
+          },
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -55,11 +89,10 @@ export default function UpdateFodaModal({ setOpenUpdateModal, fodaList }) {
           id="modal-modal-description"
           sx={{ mt: 2, textAlign: "center" }}
         >
-          {`Estar por editar el foda: Vigencia: ${moment(
-            fodaList._vigencia
-          ).format("DD/MM/YYYY")} `}{" "}
+          {` Estas por editar : Vigencia: ${moment(
+            lastFoda?._vigencia?.seconds * 1000
+          ).format("YYYY-MM-DD")} V: ${lastFoda?._version}`}
         </Typography>
-        {fodaList.version}
         <Box
           sx={{
             width: "100%",
@@ -69,7 +102,7 @@ export default function UpdateFodaModal({ setOpenUpdateModal, fodaList }) {
           }}
         >
           <Button variant="outlined" onClick={updateFoda}>
-            Crear Foda
+            Editar
           </Button>
         </Box>
       </Box>

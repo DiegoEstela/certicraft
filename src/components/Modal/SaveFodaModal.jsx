@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button, ButtonGroup, LinearProgress } from "@mui/material";
 import NewFodaModal from "./NewFodaModal";
-import { AuthContext } from "../../context/AuthContext";
-import useGetFodaDocuments from "./../../hooks/useGetFodaDocuments";
+
 import UpdateFodaModal from "./UpdateFodaModal";
 
 const style = {
@@ -23,14 +22,18 @@ const style = {
   p: 4,
 };
 
-export function SaveFodaModal({ fodaData, setSaveModal }) {
+export function SaveFodaModal({
+  lastFoda,
+  lastFodaStatus,
+  fodaData,
+  setSaveModal,
+}) {
   const [openNewModal, setOpenNewModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
-  const { user } = useContext(AuthContext);
 
-  const { data: fodaList, status, isLoading } = useGetFodaDocuments(user?.uid);
+  console.log("OOOO", lastFoda);
 
   return (
     <Modal
@@ -83,14 +86,19 @@ export function SaveFodaModal({ fodaData, setSaveModal }) {
             botón correspondiente para confirmar tus decisiones. ¡Gracias por tu
             colaboración!
           </p>
+          <Typography sx={{ textAlign: "center", mb: 2 }}>
+            {lastFoda
+              ? ""
+              : "Apreta en Nuevo Foda ya que todavia no has creado ningun docuemento"}
+          </Typography>
         </Box>
-        {isLoading ? (
+        {lastFodaStatus === "loading" ? (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />
           </Box>
         ) : (
           <>
-            {status === "success" && fodaList?.length ? (
+            {lastFodaStatus === "success" && lastFoda ? (
               <Box
                 sx={{
                   width: "100%",
@@ -130,15 +138,14 @@ export function SaveFodaModal({ fodaData, setSaveModal }) {
             fodaData={fodaData}
             setOpenNewModal={setOpenNewModal}
             setSaveModal={setSaveModal}
-            fodaList={fodaList}
           />
         )}
         {openUpdateModal && (
           <UpdateFodaModal
             fodaData={fodaData}
             setOpenUpdateModal={setOpenUpdateModal}
-            fodaList={fodaList}
             setSaveModal={setSaveModal}
+            lastFoda={lastFoda}
           />
         )}
       </Box>

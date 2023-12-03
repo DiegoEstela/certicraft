@@ -24,6 +24,8 @@ const FodaView = () => {
   const { register, getValues, setValue } = useForm();
   const { user } = useContext(AuthContext);
 
+  console.log("AAAA", fodaData);
+
   const { data: lastFoda, status } = useGetFodaDocuments(user?.uid);
 
   const handlePreSave = () => {
@@ -131,6 +133,7 @@ const FodaView = () => {
         setActiveStepNum={setActiveStepNum}
         handlePreSave={handlePreSave}
         setSaveModal={setSaveModal}
+        lastFoda={lastFoda}
       />
 
       <BasicModal
@@ -139,7 +142,12 @@ const FodaView = () => {
         description={TEXT_WELCOME_MODAL_FODA.description}
       />
       {saveModal && (
-        <SaveFodaModal fodaData={fodaData} setSaveModal={setSaveModal} />
+        <SaveFodaModal
+          lastFoda={lastFoda}
+          lastFodaStatus={status}
+          fodaData={fodaData}
+          setSaveModal={setSaveModal}
+        />
       )}
     </Paper>
   );
