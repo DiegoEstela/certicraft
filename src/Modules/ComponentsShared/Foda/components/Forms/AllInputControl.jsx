@@ -7,7 +7,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect } from "react";
 
 function AllInputControl({
   index,
@@ -15,16 +15,21 @@ function AllInputControl({
   handleInputChange,
   totalPercentage,
   register,
+  defaultValue,
+  setValue,
 }) {
-  const [inputValue, setInputValue] = useState("");
   const handleChange = (e) => {
     if (isNaN(e.target.value)) {
       return;
     }
     const newValue = e.target.value !== "" ? parseInt(e.target.value, 10) : 0;
-    setInputValue(e.target.value);
     handleInputChange(index - 1, newValue);
   };
+
+  useEffect(() => {
+    // Reinicia el valor del campo de importancia
+    setValue(`${index}-importancia`, "");
+  }, [index, setValue]);
 
   return (
     <Box
@@ -78,6 +83,7 @@ function AllInputControl({
           >
             <InputLabel sx={{ fontSize: "14px" }}>Interesado</InputLabel>
             <Select
+              defaultValue={defaultValue?.interesados?.Uno || ""}
               label={`${index}-interesadoUno`}
               sx={{ fontSize: "14px" }}
               {...register(`${index}-interesadoUno`, {
@@ -101,6 +107,7 @@ function AllInputControl({
           >
             <InputLabel sx={{ fontSize: "14px" }}>Interesado</InputLabel>
             <Select
+              defaultValue={defaultValue?.interesados?.Dos || ""}
               label={`${index}-interesadoDos`}
               sx={{ fontSize: "14px" }}
               {...register(`${index}-interesadoDos`, {
@@ -124,6 +131,7 @@ function AllInputControl({
           >
             <InputLabel sx={{ fontSize: "14px" }}>Interesado</InputLabel>
             <Select
+              defaultValue={defaultValue?.interesados?.Tres || ""}
               label={`${index}-interesadoTres`}
               sx={{ fontSize: "14px" }}
               {...register(`${index}-interesadoTres`, {
@@ -147,7 +155,6 @@ function AllInputControl({
             margin="dense"
             size="small"
             onChange={handleChange}
-            value={inputValue}
             InputProps={{
               inputProps: { max: 100, min: 0, maxLength: 2 },
             }}

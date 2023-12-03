@@ -11,6 +11,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 
 function Forms({ control, clientes, errors, isEditMode, HandleCuitChange }) {
+  console.log("CLIENTES", clientes);
   return (
     <>
       <Grid container spacing={2} alignItems="flex-start">

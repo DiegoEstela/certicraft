@@ -21,6 +21,12 @@ const LoginApp = () => {
       Swal.fire({
         icon: "error",
         title: "Error al iniciar sesión",
+        customClass: {
+          popup: "your-popup-class",
+          header: "your-header-class",
+          content: "your-content-class",
+          htmlContainer: 'style="z-index: 10000;"',
+        },
       });
     }
   };

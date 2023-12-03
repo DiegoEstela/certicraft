@@ -1,15 +1,10 @@
 import { useState } from "react";
 import AllInputControl from "../Forms/AllInputControl";
 import { Box, LinearProgress, Typography } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { trasnforData } from "../../trasnformData";
 
-const Oportunidades = () => {
-  const title = "oportunidades";
+const Oportunidades = ({ register, title, setValue }) => {
   const [totalPercentage, setTotalPercentage] = useState(0);
   const [percentages, setPercentages] = useState(Array(10).fill(0));
-
-  const { register, getValues } = useForm();
 
   const handleInputChange = (index, newValue) => {
     const diff = newValue - percentages[index];
@@ -61,6 +56,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={2}
@@ -68,6 +64,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={3}
@@ -75,6 +72,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={4}
@@ -82,6 +80,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={5}
@@ -89,6 +88,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={6}
@@ -96,6 +96,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={7}
@@ -103,6 +104,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={8}
@@ -110,6 +112,7 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
         <AllInputControl
           index={9}
@@ -117,11 +120,8 @@ const Oportunidades = () => {
           handleInputChange={handleInputChange}
           totalPercentage={totalPercentage}
           register={register}
+          setValue={setValue}
         />
-        <button onClick={() => console.log(trasnforData(getValues(), title))}>
-          {" "}
-          hola
-        </button>
       </Box>
     </>
   );

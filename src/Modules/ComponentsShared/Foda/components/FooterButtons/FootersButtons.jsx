@@ -2,8 +2,24 @@ import { Box, Button, ButtonGroup } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function FootersButtons({ activeStepNum, setActiveStepNum }) {
+function FootersButtons({
+  activeStepNum,
+  setActiveStepNum,
+  handlePreSave,
+  setSaveModal,
+}) {
   const navigate = useNavigate();
+
+  const handleNextStep = async () => {
+    const res = await handlePreSave();
+    res && setActiveStepNum(activeStepNum + 1);
+  };
+
+  const handleFinish = async () => {
+    const res = await handlePreSave();
+    res && setActiveStepNum(activeStepNum + 1);
+    setSaveModal(true);
+  };
   return (
     <Box display="flex" justifyContent="center">
       <ButtonGroup variant="text" aria-label="text button group">
@@ -18,13 +34,11 @@ function FootersButtons({ activeStepNum, setActiveStepNum }) {
         )}
 
         {activeStepNum === 4 ? (
-          <Button variant="outlined" onClick={() => alert("Guardado")}>
+          <Button variant="outlined" onClick={handleFinish}>
             Guardar
           </Button>
         ) : (
-          <Button onClick={() => setActiveStepNum(activeStepNum + 1)}>
-            Siguente
-          </Button>
+          <Button onClick={handleNextStep}>Siguente</Button>
         )}
       </ButtonGroup>
     </Box>

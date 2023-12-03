@@ -1,11 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Typography, Button, Container, Grid, Paper } from "@mui/material";
 import { standards } from "../../../utils/standards";
 
 const StandardDetail = () => {
   const { name } = useParams();
   const standard = standards.find((standar) => standar.name === name);
+  const navigate = useNavigate();
 
   const handleOptionClick = (option) => {
     console.log(`Opción seleccionada: ${option}`);
@@ -21,11 +22,8 @@ const StandardDetail = () => {
         <Typography variant="body1">{standard.description}</Typography>
         <Grid container spacing={2} sx={{ marginTop: 3 }}>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
-            <Button
-              variant="contained"
-              onClick={() => handleOptionClick("Option 1")}
-            >
-              Opción 1
+            <Button variant="contained" onClick={() => navigate("/fodaView")}>
+              FODA
             </Button>
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "center" }}>
