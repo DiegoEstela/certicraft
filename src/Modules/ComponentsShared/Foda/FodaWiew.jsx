@@ -24,8 +24,6 @@ const FodaView = () => {
   const { register, getValues, setValue } = useForm();
   const { user } = useContext(AuthContext);
 
-  console.log("AAAA", fodaData);
-
   const { data: lastFoda, status } = useGetFodaDocuments(user?.uid);
 
   const handlePreSave = () => {

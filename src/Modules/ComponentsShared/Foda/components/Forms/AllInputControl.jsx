@@ -33,7 +33,6 @@ function AllInputControl({
   useEffect(() => {
     setValue(`${index}-importancia`, "");
   }, [index, setValue]);
-  console.log("AAAA", lastFoda);
   return (
     <Box
       sx={{

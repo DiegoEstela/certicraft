@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function NewFodaModal({ fodaData, setOpenNewModal, fodaList }) {
+export default function NewFodaModal({ fodaData, lastFoda, setOpenNewModal }) {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
   const [date, setDate] = useState();
@@ -36,8 +36,11 @@ export default function NewFodaModal({ fodaData, setOpenNewModal, fodaList }) {
 
   const newFoda = async () => {
     try {
-      const prevFoda = moment(fodaList?.fecha).format("DD/MM/YYYY");
-      const newFoda = moment(date?.$d).format("DD/MM/YYYY");
+      const prevFoda = moment(lastFoda?._vigencia?.seconds * 1000).format(
+        "YYYYMMDD"
+      );
+      const newFoda = moment(date?.$d).format("YYYYMMDD");
+
       if (prevFoda === newFoda) {
         Swal.fire({
           customClass: {

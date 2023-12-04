@@ -33,8 +33,6 @@ export function SaveFodaModal({
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
 
-  console.log("OOOO", lastFoda);
-
   return (
     <Modal
       open={open}
@@ -57,40 +55,40 @@ export function SaveFodaModal({
             Estás a punto de guardar los datos del FODA. Por favor, selecciona
             la opción adecuada según tu situación:
           </p>
+          {lastFoda ? (
+            <ol>
+              <li>
+                <strong>Edición sin cambio de versión:</strong>
+                <br />
+                Si quieres editar para agregar o modificar la información sin
+                cambiar la versión, haz clic en el botón "Editar".
+              </li>
 
-          <ol>
-            <li>
-              <strong>Edición por Error:</strong>
-              <br />
-              Si estás editando por una mala interpretación o error, haz clic en
-              el botón "Editar" para corregir los detalles.
-            </li>
+              <li>
+                <strong>Actualización de Versión:</strong>
+                <br />
+                Si estás realizando cambios significativos y deseas actualizar
+                la versión del FODA, selecciona "Actualizar Versión".
+              </li>
 
-            <li>
-              <strong>Actualización de Versión:</strong>
-              <br />
-              Si estás realizando cambios significativos y deseas actualizar la
-              versión del FODA, selecciona "Actualizar Versión".
-            </li>
+              <li>
+                <strong>Nuevo FODA con Nueva Vigencia:</strong>
+                <br />
+                Si estás creando un nuevo FODA con una vigencia diferente, elige
+                la opción "Nuevo FODA".
+              </li>
+              <p>
+                Recuerda que cualquier acción que elijas requerirá que presiones
+                el botón correspondiente para confirmar tus decisiones.
+              </p>
+            </ol>
+          ) : (
+            <strong style={{ textAlign: "center" }}>
+              Aún no creaste ningún documento. Presiona Nuevo Foda{" "}
+            </strong>
+          )}
 
-            <li>
-              <strong>Nuevo FODA con Nueva Vigencia:</strong>
-              <br />
-              Si estás creando un nuevo FODA con una vigencia diferente, elige
-              la opción "Nuevo FODA".
-            </li>
-          </ol>
-
-          <p>
-            Recuerda que cualquier acción que elijas requerirá que presiones el
-            botón correspondiente para confirmar tus decisiones. ¡Gracias por tu
-            colaboración!
-          </p>
-          <Typography sx={{ textAlign: "center", mb: 2 }}>
-            {lastFoda
-              ? ""
-              : "Apreta en Nuevo Foda ya que todavia no has creado ningun docuemento"}
-          </Typography>
+          <Typography sx={{ textAlign: "center", mb: 2 }}></Typography>
         </Box>
         {lastFodaStatus === "loading" ? (
           <Box sx={{ width: "100%" }}>
@@ -119,16 +117,20 @@ export function SaveFodaModal({
                     Editar
                   </Button>
                   <Button>Actualizar version</Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => setOpenNewModal(true)}
-                  >
+                  <Button onClick={() => setOpenNewModal(true)}>
                     Nuevo FODA
                   </Button>
                 </ButtonGroup>
               </Box>
             ) : (
-              <Button onClick={() => setOpenNewModal(true)}>Nuevo FODA</Button>
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ width: "40%", textAlign: "center", display: "flex" }}
+                onClick={() => setOpenNewModal(true)}
+              >
+                Nuevo FODA
+              </Button>
             )}
           </>
         )}
@@ -136,8 +138,8 @@ export function SaveFodaModal({
         {openNewModal && (
           <NewFodaModal
             fodaData={fodaData}
+            lastFoda={lastFoda}
             setOpenNewModal={setOpenNewModal}
-            setSaveModal={setSaveModal}
           />
         )}
         {openUpdateModal && (
