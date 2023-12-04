@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Box, Paper } from "@mui/material";
+import { Box, LinearProgress, Paper } from "@mui/material";
 import LinearStepper from "../../../components/Stepper/Stepper";
 import { fodaSteps } from "./utils/FodaSteps";
 import FootersButtons from "./components/FooterButtons/FootersButtons";
@@ -14,7 +14,6 @@ import { transformData } from "./utils/trasnformData";
 import { SaveFodaModal } from "../../../components/Modal/SaveFodaModal";
 import { AuthContext } from "../../../context/AuthContext";
 import useGetFodaDocuments from "../../../hooks/useGetFodaDocuments";
-import { BallTriangle } from "react-loader-spinner";
 
 const FodaView = () => {
   const title = ["fortalezas", "oportunidades", "debilidades", "amenazas"];
@@ -108,17 +107,10 @@ const FodaView = () => {
       />
 
       {status === "loading" ? (
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <BallTriangle
-            height={100}
-            width={100}
-            radius={5}
-            color="#63CCCA"
-            ariaLabel="ball-triangle-loading"
-            wrapperClass={{}}
-            wrapperStyle=""
-            visible={true}
-          />
+        <Box display="center" justifyContent="center">
+          <Box sx={{ mt: 4, mb: 4, width: "90%" }}>
+            <LinearProgress />
+          </Box>
         </Box>
       ) : (
         ""

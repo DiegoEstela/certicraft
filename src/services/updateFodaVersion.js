@@ -1,15 +1,18 @@
-import { Timestamp, collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { firestore } from "../config/firebase";
-import moment from "moment";
 
-export const saveFodaAnalice = async (uid, fodaData, date) => {
+export const updateFodaVersion = async (
+  uid,
+  fodaData,
+  vigencia,
+  version,
+  dateUid
+) => {
   try {
-    const dateString = moment(date?.$d).format("DDMMYYYY");
-    const dateFormatted = moment(date?.$d).toDate();
-    const dateUid = `${dateString}V1`;
+    const dateIdNewVersion = `${dateUid.slice(0, -2)}V${version + 1}`;
     const userDocRef = doc(firestore, "clientes", uid);
     const nuevaColeccionRef = collection(userDocRef, "FODA");
-    const nuevoDocumentoRef = doc(nuevaColeccionRef, dateUid);
+    const nuevoDocumentoRef = doc(nuevaColeccionRef, dateIdNewVersion);
 
     const cleanFodaData = {};
     Object.keys(fodaData).forEach((key) => {
@@ -20,8 +23,8 @@ export const saveFodaAnalice = async (uid, fodaData, date) => {
 
     await setDoc(nuevoDocumentoRef, {
       ...cleanFodaData,
-      _vigencia: Timestamp.fromDate(dateFormatted),
-      _version: 1,
+      _vigencia: vigencia,
+      _version: version + 1,
     });
 
     return true;

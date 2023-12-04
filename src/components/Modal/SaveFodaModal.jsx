@@ -6,6 +6,7 @@ import { Button, ButtonGroup, LinearProgress } from "@mui/material";
 import NewFodaModal from "./NewFodaModal";
 
 import UpdateFodaModal from "./UpdateFodaModal";
+import ChangeVersionModal from "./changeVersionModal";
 
 const style = {
   position: "absolute",
@@ -30,6 +31,7 @@ export function SaveFodaModal({
 }) {
   const [openNewModal, setOpenNewModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [openChangeVersionModal, setOpenChangeVersionModal] = useState(false);
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
 
@@ -116,21 +118,29 @@ export function SaveFodaModal({
                   >
                     Editar
                   </Button>
-                  <Button>Actualizar version</Button>
+                  <Button
+                    onClick={() => {
+                      setOpenChangeVersionModal(true);
+                    }}
+                  >
+                    Actualizar version
+                  </Button>
                   <Button onClick={() => setOpenNewModal(true)}>
                     Nuevo FODA
                   </Button>
                 </ButtonGroup>
               </Box>
             ) : (
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{ width: "40%", textAlign: "center", display: "flex" }}
-                onClick={() => setOpenNewModal(true)}
-              >
-                Nuevo FODA
-              </Button>
+              <Box display="flex" justifyContent="center">
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{ width: "40%", textAlign: "center", display: "flex" }}
+                  onClick={() => setOpenNewModal(true)}
+                >
+                  Nuevo FODA
+                </Button>
+              </Box>
             )}
           </>
         )}
@@ -144,6 +154,14 @@ export function SaveFodaModal({
         )}
         {openUpdateModal && (
           <UpdateFodaModal
+            fodaData={fodaData}
+            setOpenUpdateModal={setOpenUpdateModal}
+            setSaveModal={setSaveModal}
+            lastFoda={lastFoda}
+          />
+        )}
+        {openChangeVersionModal && (
+          <ChangeVersionModal
             fodaData={fodaData}
             setOpenUpdateModal={setOpenUpdateModal}
             setSaveModal={setSaveModal}

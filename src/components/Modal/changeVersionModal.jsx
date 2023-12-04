@@ -7,9 +7,9 @@ import { Button } from "@mui/material";
 
 import moment from "moment";
 import { AuthContext } from "../../context/AuthContext";
-import { updateFodaAnalice } from "../../services/updateFodaAnalice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { updateFodaVersion } from "./../../services/updateFodaVersion";
 
 const style = {
   position: "absolute",
@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function UpdateFodaModal({ fodaData, lastFoda }) {
+export default function ChangeVersionModal({ fodaData, lastFoda }) {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
   const { user } = useContext(AuthContext);
@@ -36,7 +36,7 @@ export default function UpdateFodaModal({ fodaData, lastFoda }) {
   const updateFoda = async () => {
     try {
       const uid = user?.uid;
-      const res = await updateFodaAnalice(
+      const res = await updateFodaVersion(
         uid,
         fodaData,
         lastFoda?._vigencia,
@@ -49,7 +49,7 @@ export default function UpdateFodaModal({ fodaData, lastFoda }) {
             container: "swal-container",
           },
           icon: "success",
-          title: "Datos actualizados",
+          title: `Actualizaste el foda a la version: ${lastFoda?._version + 1}`,
           text: `Los datos se actualizaron correctamente.`,
         });
 
@@ -82,15 +82,21 @@ export default function UpdateFodaModal({ fodaData, lastFoda }) {
           component="h2"
           sx={{ mb: 2, textAlign: "center" }}
         >
-          Edicion de Foda
+          Actualizar
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2, textAlign: "center" }}
         >
-          {` Estas por editar : Vigencia: ${moment(
+          {` Estas por cambiar de version al foda : Vigencia: ${moment(
             lastFoda?._vigencia?.seconds * 1000
-          ).format("YYYY-MM-DD")} V: ${lastFoda?._version}`}
+          ).format("YYYY-MM-DD")}`}
+          <strong>
+            {" "}
+            {`VERSION: ${lastFoda?._version} x VERSION: ${
+              lastFoda?._version + 1
+            }`}{" "}
+          </strong>
         </Typography>
         <Box
           sx={{
@@ -101,7 +107,7 @@ export default function UpdateFodaModal({ fodaData, lastFoda }) {
           }}
         >
           <Button variant="outlined" onClick={updateFoda}>
-            Editar
+            Actualizar
           </Button>
         </Box>
       </Box>

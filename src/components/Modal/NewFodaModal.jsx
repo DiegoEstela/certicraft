@@ -62,7 +62,7 @@ export default function NewFodaModal({ fodaData, lastFoda, setOpenNewModal }) {
             text: `Los datos se actualizaron correctamente.`,
           });
 
-          navigate("/");
+          navigate(0);
         } else {
           Swal.fire({
             icon: "error",
